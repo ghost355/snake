@@ -2,6 +2,10 @@
 #define GAME_H
 #include <SDL3/SDL.h>
 
+#define screen_width 800
+#define screen_height 600
+#define grid_size 10
+
 typedef struct Point {
   int x, y;
 } Point;
@@ -24,6 +28,14 @@ typedef struct Game {
   Snake snake;
   Fruit fruit;
   int score;
-} Game
+  bool running;
+  // TODO add State to Game and enum for States
+} Game;
+
+bool game_init(Game *game);
+
+void run_game(Game *game);
+
+void quit_game(Game *game);
 
 #endif
