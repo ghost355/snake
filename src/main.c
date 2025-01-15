@@ -5,8 +5,8 @@
 int main(int argc, char *argv[]) {
 
   Game game;
-  init_game(&game);
-  run_game(&game);
+  game_init(&game);
+  /* run_game(&game); */
   quit_game(&game);
 
   return EXIT_SUCCESS;
