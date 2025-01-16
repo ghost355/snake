@@ -3,7 +3,8 @@
 
 #include "game.h"
 
-void input_handle(Game* game);
+
+void input_handle(Game* game, SDL_Event* event);
 void update(Game* game);
 void render(Game* game);
 
