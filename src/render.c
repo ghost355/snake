@@ -11,6 +11,7 @@ void render(Game *game) {
   /* render_fruit(game); */
 
   SDL_RenderPresent(game->renderer);
+  SDL_Delay(1000 / 30);
 }
 
 void render_snake(Game *game) {

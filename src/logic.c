@@ -31,7 +31,23 @@ void input_handle(Game *game, SDL_Event *event) {
 }
 
 void update(Game *game) {
-  for (int i = game->snake.length; i > 0; i--) {
+  for (int i = game->snake.length - 1; i > 0; i--) {
     game->snake.body[i] = game->snake.body[i - 1];
+  }
+  game->snake.body[0] = game->snake.head;
+
+  switch (game->snake.direction) {
+  case Up:
+    game->snake.head.y -= grid_size;
+    break;
+  case Down:
+    game->snake.head.y += grid_size;
+    break;
+  case Left:
+    game->snake.head.x -= grid_size;
+    break;
+  case Right:
+    game->snake.head.x += grid_size;
+    break;
   }
 }

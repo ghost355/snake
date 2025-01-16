@@ -45,7 +45,7 @@ void run_game(Game *game) {
   SDL_zero(event);
   while (game->running) {
     input_handle(game, &event);
-    /* update(game); */
+    update(game);
     render(game);
   }
 }
