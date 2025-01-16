@@ -6,36 +6,47 @@
 #define screen_height 600
 #define grid_size 10
 
-typedef struct Point {
-  int x, y;
+typedef struct Point
+{
+    int x, y;
 } Point;
 
-typedef enum Direction { Up, Down, Left, Right } Direction;
+typedef enum Direction
+{
+    Up,
+    Down,
+    Left,
+    Right
+} Direction;
 
-typedef struct Snake {
-  Point head;
-  Point *body;
-  Direction direction;
+typedef struct Snake
+{
+    Point     head;
+    Point*    body;
+    Direction direction;
+    int       lenght;
 } Snake;
 
-typedef struct Fruit {
-  Point fruit;
+typedef struct Fruit
+{
+    Point fruit;
 } Fruit;
 
-typedef struct Game {
-  SDL_Window *window;
-  SDL_Renderer *renderer;
-  Snake snake;
-  Fruit fruit;
-  int score;
-  bool running;
-  // TODO add State to Game and enum for States
+typedef struct Game
+{
+    SDL_Window*   window;
+    SDL_Renderer* renderer;
+    Snake         snake;
+    Fruit         fruit;
+    int           score;
+    bool          running;
+    // TODO add State to Game and enum for States
 } Game;
 
-bool game_init(Game *game);
+bool game_init(Game* game);
 
-void run_game(Game *game);
+void run_game(Game* game);
 
-void quit_game(Game *game);
+void quit_game(Game* game);
 
 #endif
