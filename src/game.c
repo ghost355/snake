@@ -1,4 +1,5 @@
 #include "../include/game.h"
+#include "../include/logic.h"
 #include "SDL3/SDL_log.h"
 
 bool game_init(Game* game)
@@ -39,9 +40,13 @@ bool game_init(Game* game)
 
 void run_game(Game* game)
 {
-    input_handle(game);
-    update(game);
-    render(game);
+    SDL_Event event;
+    SDL_zero(event);
+    while (game->running) {
+        input_handle(game, &event);
+        update(game);
+        render(game);
+    }
 }
 
 void quit_game(Game* game)
