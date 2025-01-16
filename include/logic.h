@@ -6,6 +6,5 @@
 
 void input_handle(Game* game, SDL_Event* event);
 void update(Game* game);
-void render(Game* game);
 
 #endif

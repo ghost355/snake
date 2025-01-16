@@ -1,5 +1,6 @@
 #include "../include/game.h"
 #include "../include/logic.h"
+#include "../include/render.h"
 #include "SDL3/SDL_log.h"
 
 bool game_init(Game* game)
