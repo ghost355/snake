@@ -30,10 +30,8 @@ bool game_init(Game *game) {
     snake.body[i].y = snake.head.y;
   }
 
-  Fruit fruit = {{0, 0}};
-
   game->snake = snake;
-  game->fruit = fruit;
+  game->fruit = (Point){0, 0};
   game->score = 0;
   game->running = true;
 

@@ -25,3 +25,9 @@ void render_snake(Game *game) {
     SDL_RenderFillRect(game->renderer, &body_rect);
   }
 }
+
+void render_fruit(Game *game) {
+  SDL_SetRenderDrawColor(game->renderer, 0, 255, 0, 255);
+  SDL_FRect fruit_rect = {game->fruit.x, game->fruit.y, grid_size, grid_size};
+  SDL_RenderFillRect(game->renderer, &fruit_rect);
+}

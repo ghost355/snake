@@ -21,15 +21,11 @@ typedef struct Snake {
   int length;
 } Snake;
 
-typedef struct Fruit {
-  Point fruit;
-} Fruit;
-
 typedef struct Game {
   SDL_Window *window;
   SDL_Renderer *renderer;
   Snake snake;
-  Fruit fruit;
+  Point fruit;
   int score;
   bool running;
   // TODO add State to Game and enum for States
