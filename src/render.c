@@ -9,7 +9,7 @@ void render(Game* game)
 
     SDL_RenderClear(game->renderer);
     render_snake(game);
-    render_fruit(game);
+    /* render_fruit(game); */
 
     SDL_RenderPresent(game->renderer);
 }
