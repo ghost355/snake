@@ -79,8 +79,9 @@ bool fruit_not_valid(Game* game)
 void fruit_init(Game* game)
 {
     do {
-        game->fruit.x = SDL_rand(screen_width);
-        game->fruit.y = SDL_rand(screen_height);
+        // 1 and 1 are the offset from borders
+        game->fruit.x = 1 + SDL_rand(screen_width) - grid_size - 1;
+        game->fruit.y = 1 + SDL_rand(screen_height) - grid_size - 1;
     }
     while (fruit_not_valid(game));
     game->fruit_eaten = false;

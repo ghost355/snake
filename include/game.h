@@ -4,7 +4,7 @@
 
 #define screen_width 800
 #define screen_height 600
-#define grid_size 10
+#define grid_size 20
 #define initial_len 2
 #define max_lenght 100
 
