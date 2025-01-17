@@ -32,6 +32,6 @@ void render_fruit(Game* game)
 {
     SDL_SetRenderDrawColor(game->renderer, 0, 255, 0, 255);
     SDL_FRect fruit_rect
-      = { game->fruit.x, game->fruit.y, grid_size, grid_size };
+      = { game->fruit.x, game->fruit.y, grid_size + 6, grid_size + 6 };
     SDL_RenderFillRect(game->renderer, &fruit_rect);
 }

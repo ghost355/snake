@@ -3,11 +3,8 @@
 
 bool is_collision(Point* a, Point* b)
 {
-    if (a->x >= b->x && a->x <= b->x + grid_size && a->y >= b->y
-        && a->y <= b->y + grid_size) {
-        return true;
-    }
-    return false;
+    return !(a->x + grid_size <= b->x || a->x >= b->x + grid_size
+             || a->y + grid_size <= b->y || a->y >= b->y + grid_size);
 }
 
 void snake_dead(Snake* snake)
