@@ -91,9 +91,9 @@ void fruit_init(Game* game)
     do {
         // 1 and 1 are the offset from borders
         game->fruit.x
-          = 1 + grid_size + SDL_rand(screen_width) - grid_size * 2 - 1;
+          = 1 + grid_size + SDL_rand(screen_width - grid_size * 2) - 1;
         game->fruit.y
-          = 1 + grid_size + SDL_rand(screen_height) - grid_size * 2 - 1;
+          = 1 + grid_size + SDL_rand(screen_height - grid_size * 2) - 1;
     }
     while (fruit_not_valid(game));
     game->fruit_eaten = false;
