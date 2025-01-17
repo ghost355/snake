@@ -10,6 +10,7 @@ bool is_collision(Point* a, Point* b)
 void snake_dead(Snake* snake)
 {
     SDL_Delay(1000);
+    snake->length = initial_len;
     snake->head.x = screen_width / 2;
     snake->head.y = screen_height / 2;
 }
@@ -104,6 +105,7 @@ void update(Game* game)
 
     if (game->fruit_eaten) {
         fruit_init(game);
+        game->snake.length++;
     }
 
     body_move(game);
@@ -114,9 +116,7 @@ void update(Game* game)
         snake_dead(&game->snake);
     }
 
-
     if (snake_eat_fruit(game)) {
-        game->snake.length++;
         game->score++;
         game->fruit_eaten = true;
     }
