@@ -23,6 +23,16 @@ bool snake_out_border(Snake* snake)
     return false;
 }
 
+bool snake_eat_self(Snake* snake)
+{
+    for (int i = 0; i < snake->length; i++) {
+        if (is_collision(&snake->head, &snake->body[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool snake_eat_fruit(Game* game)
 {
     if (is_collision(&game->snake.head, &game->fruit)) {
@@ -80,8 +90,10 @@ void fruit_init(Game* game)
 {
     do {
         // 1 and 1 are the offset from borders
-        game->fruit.x = 1 + SDL_rand(screen_width) - grid_size - 1;
-        game->fruit.y = 1 + SDL_rand(screen_height) - grid_size - 1;
+        game->fruit.x
+          = 1 + grid_size + SDL_rand(screen_width) - grid_size * 2 - 1;
+        game->fruit.y
+          = 1 + grid_size + SDL_rand(screen_height) - grid_size * 2 - 1;
     }
     while (fruit_not_valid(game));
     game->fruit_eaten = false;
@@ -98,9 +110,10 @@ void update(Game* game)
 
     snake_move(game);
 
-    if (snake_out_border(&game->snake)) {
+    if (snake_out_border(&game->snake) || snake_eat_self(&game->snake)) {
         snake_dead(&game->snake);
     }
+
 
     if (snake_eat_fruit(game)) {
         game->snake.length++;
