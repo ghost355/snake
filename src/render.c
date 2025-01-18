@@ -44,14 +44,14 @@ void render_fruit(Game* game)
 void render_text(Game* game)
 {
     snprintf(game->label->score_label, sizeof(game->label->score_label),
-             "Score: %d", game->score);
+             "Score: %04d", game->score);
     SDL_Surface* scoreSurface
       = TTF_RenderText_Solid(game->font, game->label->score_label, 0,
                              (SDL_Color) { 255, 255, 255, 255 });
     SDL_Texture* scoreTexture
       = SDL_CreateTextureFromSurface(game->renderer, scoreSurface);
     SDL_DestroySurface(scoreSurface);
-    SDL_FRect scoreRect = { 0, 0, scoreTexture->w, scoreTexture->h };
+    SDL_FRect scoreRect = { 10, 10, scoreTexture->w, scoreTexture->h };
     SDL_RenderTexture(game->renderer, scoreTexture, NULL, &scoreRect);
     SDL_DestroyTexture(scoreTexture);
 }

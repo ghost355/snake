@@ -31,7 +31,7 @@ bool game_init(Game* game)
         return false;
     }
     if (!(game->font
-          = TTF_OpenFont("/Users/pavel/github/snake/font/font.ttf", 24))) {
+          = TTF_OpenFont("/Users/pavel/github/snake/font/font.ttf", 32))) {
         SDL_Log("Can't open font: %s", SDL_GetError());
         return false;
     }
