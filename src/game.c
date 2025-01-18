@@ -2,6 +2,7 @@
 #include "../include/logic.h"
 #include "../include/render.h"
 #include "SDL3/SDL_log.h"
+#include "SDL3_ttf/SDL_ttf.h"
 
 bool game_init(Game* game)
 {
@@ -10,18 +11,31 @@ bool game_init(Game* game)
         SDL_Log("SDL initialized failed %s", SDL_GetError());
         return false;
     }
-    else if (!(game->window
-               = SDL_CreateWindow("snake", screen_width, screen_height, 0))) {
+    if (!(TTF_Init())) {
+        SDL_Log("TTF initialized failed %s", SDL_GetError());
+        SDL_Quit();
+        return false;
+    }
+    if (!(game->window
+          = SDL_CreateWindow("snake", screen_width, screen_height, 0))) {
         SDL_Log("SDL Window creation failed %s", SDL_GetError());
+        TTF_Quit();
         SDL_Quit();
         return false;
     }
     if (!(game->renderer = SDL_CreateRenderer(game->window, 0))) {
         SDL_Log("SDL Renderer creation failed %s", SDL_GetError());
         SDL_DestroyWindow(game->window);
+        TTF_Quit();
         SDL_Quit();
         return false;
     }
+    if (!(game->font
+          = TTF_OpenFont("/Users/pavel/github/snake/font/font.ttf", 24))) {
+        SDL_Log("Can't open font: %s", SDL_GetError());
+        return false;
+    }
+
 
     Snake snake = {
         .head      = { screen_width / 2, screen_height / 2 },
@@ -40,6 +54,10 @@ bool game_init(Game* game)
     game->running     = true;
     game->fruit_eaten = true;
 
+    Text label;
+    game->label = &label;
+
+
     return true;
 }
 
@@ -56,7 +74,9 @@ void run_game(Game* game)
 
 void quit_game(Game* game)
 {
+    TTF_CloseFont(game->font);
     SDL_DestroyWindow(game->window);
     SDL_DestroyRenderer(game->renderer);
+    TTF_Quit();
     SDL_Quit();
 }
