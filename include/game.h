@@ -11,8 +11,8 @@
 
 #define area_x 10
 #define area_y 50
-#define area_w (screen_width - area_x)
-#define area_h (screen_height - area_y)
+#define area_w (screen_width - area_x * 2)
+#define area_h (screen_height - area_y - area_x)
 
 typedef struct Point
 {

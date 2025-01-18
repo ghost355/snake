@@ -4,6 +4,7 @@
 void render_snake(Game* game);
 void render_fruit(Game* game);
 void render_text(Game* game);
+void render_border(Game* game);
 
 void render(Game* game)
 {
@@ -13,6 +14,7 @@ void render(Game* game)
     render_snake(game);
     render_fruit(game);
     render_text(game);
+    render_border(game);
 
     SDL_RenderPresent(game->renderer);
     SDL_Delay(1000 / 15);
@@ -52,4 +54,11 @@ void render_text(Game* game)
     SDL_FRect scoreRect = { 0, 0, scoreTexture->w, scoreTexture->h };
     SDL_RenderTexture(game->renderer, scoreTexture, NULL, &scoreRect);
     SDL_DestroyTexture(scoreTexture);
+}
+
+void render_border(Game* game)
+{
+    SDL_SetRenderDrawColor(game->renderer, 255, 255, 255, 255);
+    SDL_FRect border_rect = { area_x, area_y, area_w, area_h };
+    SDL_RenderRect(game->renderer, &border_rect);
 }
