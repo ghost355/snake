@@ -50,4 +50,4 @@ run:
 	$(EXE)
 
 # Библиотека по-умолчанию
-LIBRARY ?= sdl3
+LIBRARY ?= "sdl3 sdl3-ttf"
