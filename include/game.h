@@ -9,6 +9,11 @@
 #define initial_len 2
 #define max_lenght 100
 
+#define area_x 10
+#define area_y 50
+#define area_w (screen_width - area_x)
+#define area_h (screen_height - area_y)
+
 typedef struct Point
 {
     int x, y;
