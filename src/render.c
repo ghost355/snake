@@ -41,31 +41,33 @@ void render_fruit(Game* game)
     SDL_RenderFillRect(game->renderer, &fruit_rect);
 }
 
+void any_text_render(char* str_array, SDL_Renderer* renderer, TTF_Font* font,
+                     SDL_Color color, int x, int y)
+{
+    SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, str_array, 0, color);
+    SDL_Texture* scoreTexture
+      = SDL_CreateTextureFromSurface(renderer, scoreSurface);
+    SDL_DestroySurface(scoreSurface);
+    SDL_FRect scoreRect = { x, y, scoreTexture->w, scoreTexture->h };
+    SDL_RenderTexture(renderer, scoreTexture, NULL, &scoreRect);
+    SDL_DestroyTexture(scoreTexture);
+}
+
 void render_text(Game* game)
 {
-    snprintf(game->label->score_label, sizeof(game->label->score_label),
-             "Score: %04d", game->score);
-    SDL_Surface* scoreSurface
-      = TTF_RenderText_Solid(game->font, game->label->score_label, 0,
-                             (SDL_Color) { 255, 255, 255, 255 });
-    SDL_Texture* scoreTexture
-      = SDL_CreateTextureFromSurface(game->renderer, scoreSurface);
-    SDL_DestroySurface(scoreSurface);
-    SDL_FRect scoreRect = { 10, 10, scoreTexture->w, scoreTexture->h };
-    SDL_RenderTexture(game->renderer, scoreTexture, NULL, &scoreRect);
-    SDL_DestroyTexture(scoreTexture);
+    SDL_Color white = { 255, 255, 255, 255 };
+    char      timer[32];
+    snprintf(timer, sizeof(timer), "Timer: %04d", game->score);
+    any_text_render(timer, game->renderer, game->font, white, 600, 10);
 
-    snprintf(game->label->length_label, sizeof(game->label->score_label),
-             "Snake length: %02d", game->snake.length);
-    SDL_Surface* lengthSurface
-      = TTF_RenderText_Solid(game->font, game->label->length_label, 0,
-                             (SDL_Color) { 255, 255, 255, 255 });
-    SDL_Texture* lengthTexture
-      = SDL_CreateTextureFromSurface(game->renderer, lengthSurface);
-    SDL_DestroySurface(scoreSurface);
-    SDL_FRect lengthRect = { 300, 10, lengthTexture->w, lengthTexture->h };
-    SDL_RenderTexture(game->renderer, lengthTexture, NULL, &lengthRect);
-    SDL_DestroyTexture(lengthTexture);
+    char score_label[32];
+    snprintf(score_label, sizeof(score_label), "Score: %04d", game->score);
+    any_text_render(score_label, game->renderer, game->font, white, 10, 10);
+
+    char length_label[32];
+    snprintf(length_label, sizeof(length_label), "Snake length: %02d",
+             game->snake.length);
+    any_text_render(length_label, game->renderer, game->font, white, 250, 10);
 }
 
 void render_border(Game* game)
