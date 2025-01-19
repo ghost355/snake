@@ -51,6 +51,8 @@ bool game_init(Game* game)
     game->snake       = snake;
     game->fruit       = (Point) { 0, 0 };
     game->score       = 0;
+    game->timer       = 0;
+    game->last_time   = 0;
     game->running     = true;
     game->fruit_eaten = true;
     return true;
@@ -60,6 +62,8 @@ void run_game(Game* game)
 {
     SDL_Event event;
     SDL_zero(event);
+    game->last_time = SDL_GetTicks();
+
     while (game->running) {
         input_handle(game, &event);
         update(game);

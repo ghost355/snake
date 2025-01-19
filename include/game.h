@@ -43,6 +43,8 @@ typedef struct Game
     Snake         snake;
     Point         fruit;
     int           score;
+    Uint64        timer;
+    Uint64        last_time;
     bool          running;
     bool          fruit_eaten;
     // TODO add State to Game and enum for States

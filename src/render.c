@@ -6,6 +6,11 @@ void render_fruit(Game* game);
 void render_text(Game* game);
 void render_border(Game* game);
 
+void string_render(char* str_array, SDL_Renderer* renderer, TTF_Font* font,
+                   SDL_Color color, int x, int y);
+
+// ==================
+
 void render(Game* game)
 {
     SDL_SetRenderDrawColor(game->renderer, 0, 0, 0, 255);
@@ -41,23 +46,13 @@ void render_fruit(Game* game)
     SDL_RenderFillRect(game->renderer, &fruit_rect);
 }
 
-void string_render(char* str_array, SDL_Renderer* renderer, TTF_Font* font,
-                   SDL_Color color, int x, int y)
-{
-    SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, str_array, 0, color);
-    SDL_Texture* scoreTexture
-      = SDL_CreateTextureFromSurface(renderer, scoreSurface);
-    SDL_DestroySurface(scoreSurface);
-    SDL_FRect scoreRect = { x, y, scoreTexture->w, scoreTexture->h };
-    SDL_RenderTexture(renderer, scoreTexture, NULL, &scoreRect);
-    SDL_DestroyTexture(scoreTexture);
-}
-
 void render_text(Game* game)
 {
     SDL_Color white = { 255, 255, 255, 255 };
-    char      timer[32];
-    snprintf(timer, sizeof(timer), "Timer: %04d", game->score);
+
+    char timer[32];
+    snprintf(timer, sizeof(timer), "Timer: %.1f",
+             (game->timer - game->last_time) / 1000.f);
     string_render(timer, game->renderer, game->font, white, 600, 10);
 
     char score_label[32];
@@ -75,4 +70,16 @@ void render_border(Game* game)
     SDL_SetRenderDrawColor(game->renderer, 255, 255, 255, 255);
     SDL_FRect border_rect = { area_x, area_y, area_w, area_h };
     SDL_RenderRect(game->renderer, &border_rect);
+}
+
+void string_render(char* str_array, SDL_Renderer* renderer, TTF_Font* font,
+                   SDL_Color color, int x, int y)
+{
+    SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, str_array, 0, color);
+    SDL_Texture* scoreTexture
+      = SDL_CreateTextureFromSurface(renderer, scoreSurface);
+    SDL_DestroySurface(scoreSurface);
+    SDL_FRect scoreRect = { x, y, scoreTexture->w, scoreTexture->h };
+    SDL_RenderTexture(renderer, scoreTexture, NULL, &scoreRect);
+    SDL_DestroyTexture(scoreTexture);
 }

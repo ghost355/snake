@@ -1,5 +1,6 @@
 #include "../include/logic.h"
 #include "SDL3/SDL_events.h"
+#include "SDL3/SDL_timer.h"
 
 bool is_collision(Point* a, Point* b)
 {
@@ -7,20 +8,22 @@ bool is_collision(Point* a, Point* b)
              || a->y + grid_size <= b->y || a->y >= b->y + grid_size);
 }
 
-void snake_dead(Snake* snake)
+void snake_dead(Game* game)
 {
     SDL_Delay(1000);
-    for (int i = initial_len; i < snake->length; i++) {
-        snake->body[i] = (Point) { 0, 0 };
+    game->last_time = SDL_GetTicks();
+    game->timer     = SDL_GetTicks();
+    for (int i = initial_len; i < game->snake.length; i++) {
+        game->snake.body[i] = (Point) { 0, 0 };
     }
-    snake->length = initial_len;
+    game->snake.length = initial_len;
     for (int i = 0; i < initial_len; i++) {
-        snake->body[i].x = snake->head.x - i * grid_size;
-        snake->body[i].y = snake->head.y;
+        game->snake.body[i].x = game->snake.head.x - i * grid_size;
+        game->snake.body[i].y = game->snake.head.y;
     }
 
-    snake->head.x = screen_width / 2;
-    snake->head.y = screen_height / 2;
+    game->snake.head.x = screen_width / 2;
+    game->snake.head.y = screen_height / 2;
 }
 
 bool snake_out_border(Snake* snake)
@@ -102,6 +105,7 @@ void fruit_init(Game* game)
 
 void update(Game* game)
 {
+    game->timer = SDL_GetTicks();
 
     if (game->fruit_eaten) {
         fruit_init(game);
@@ -113,7 +117,7 @@ void update(Game* game)
     snake_move(game);
 
     if (snake_out_border(&game->snake) || snake_eat_self(&game->snake)) {
-        snake_dead(&game->snake);
+        snake_dead(game);
     }
 
     if (snake_eat_fruit(game)) {
