@@ -54,6 +54,18 @@ void render_text(Game* game)
     SDL_FRect scoreRect = { 10, 10, scoreTexture->w, scoreTexture->h };
     SDL_RenderTexture(game->renderer, scoreTexture, NULL, &scoreRect);
     SDL_DestroyTexture(scoreTexture);
+
+    snprintf(game->label->length_label, sizeof(game->label->score_label),
+             "Snake length: %02d", game->snake.length);
+    SDL_Surface* lengthSurface
+      = TTF_RenderText_Solid(game->font, game->label->length_label, 0,
+                             (SDL_Color) { 255, 255, 255, 255 });
+    SDL_Texture* lengthTexture
+      = SDL_CreateTextureFromSurface(game->renderer, lengthSurface);
+    SDL_DestroySurface(scoreSurface);
+    SDL_FRect lengthRect = { 300, 10, lengthTexture->w, lengthTexture->h };
+    SDL_RenderTexture(game->renderer, lengthTexture, NULL, &lengthRect);
+    SDL_DestroyTexture(lengthTexture);
 }
 
 void render_border(Game* game)
