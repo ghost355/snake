@@ -53,11 +53,6 @@ bool game_init(Game* game)
     game->score       = 0;
     game->running     = true;
     game->fruit_eaten = true;
-
-    Text label;
-    game->label = &label;
-
-
     return true;
 }
 

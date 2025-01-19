@@ -35,12 +35,6 @@ typedef struct Snake
     int       length;
 } Snake;
 
-typedef struct Text
-{
-    char score_label[32];
-    char length_label[32];
-} Text;
-
 typedef struct Game
 {
     SDL_Window*   window;
@@ -51,7 +45,6 @@ typedef struct Game
     int           score;
     bool          running;
     bool          fruit_eaten;
-    Text*         label;
     // TODO add State to Game and enum for States
 } Game;
 
