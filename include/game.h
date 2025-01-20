@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+#include "SDL3/SDL_stdinc.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
@@ -45,6 +46,8 @@ typedef struct Game
     int           score;
     Uint64        timer;
     Uint64        last_time;
+    float         dt;
+    Uint64        lastFrameTime;
     bool          running;
     bool          fruit_eaten;
     // TODO add State to Game and enum for States

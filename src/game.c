@@ -36,6 +36,11 @@ bool game_init(Game* game)
         return false;
     }
 
+    if (!SDL_SetRenderVSync(game->renderer, 1)) {
+        SDL_Log("Could not enable VSync! SDL error: %s\n", SDL_GetError());
+        return false;
+    }
+
 
     Snake snake = {
         .head      = { screen_width / 2, screen_height / 2 },
@@ -48,13 +53,15 @@ bool game_init(Game* game)
         snake.body[i].y = snake.head.y;
     }
 
-    game->snake       = snake;
-    game->fruit       = (Point) { 0, 0 };
-    game->score       = 0;
-    game->timer       = 0;
-    game->last_time   = 0;
-    game->running     = true;
-    game->fruit_eaten = true;
+    game->snake         = snake;
+    game->fruit         = (Point) { 0, 0 };
+    game->score         = 0;
+    game->timer         = 0;
+    game->last_time     = 0;
+    game->running       = true;
+    game->fruit_eaten   = true;
+    game->lastFrameTime = 0;
+    game->dt            = 1;
     return true;
 }
 
@@ -64,7 +71,17 @@ void run_game(Game* game)
     SDL_zero(event);
     game->last_time = SDL_GetTicks();
 
+    bool   vsyncEnabled   = true;
+    bool   fpsCapEnabled  = true;
+    Uint64 renderedFrames = 0;
+
     while (game->running) {
+
+        Uint64 currentTime = SDL_GetPerformanceCounter();
+
+        game->dt = (float)(currentTime - game->lastFrameTime) / 1000.f;
+        game->lastFrameTime = currentTime;
+
         input_handle(game, &event);
         update(game);
         render(game);

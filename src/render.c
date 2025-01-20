@@ -51,9 +51,9 @@ void render_text(Game* game)
     SDL_Color white = { 255, 255, 255, 255 };
 
     char timer[32];
-    snprintf(timer, sizeof(timer), "Timer: %.1f",
+    snprintf(timer, sizeof(timer), "Timer: %.1f s",
              (game->timer - game->last_time) / 1000.f);
-    string_render(timer, game->renderer, game->font, white, 600, 10);
+    string_render(timer, game->renderer, game->font, white, 570, 10);
 
     char score_label[32];
     snprintf(score_label, sizeof(score_label), "Score: %04d", game->score);
